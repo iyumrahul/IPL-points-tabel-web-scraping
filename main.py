@@ -26,21 +26,38 @@ if __name__ == "__main__":
 
     # get Point list tabel by class name
     outer_tag=driver.find_elements(By.CLASS_NAME,'ih-pcard-wrap')
-    print(len(outer_tag))
+    
     outerTag=outer_tag[0]
-    inner_tag=outerTag.find_elements(By.CLASS_NAME,'team0')
-    print(len(inner_tag))
+    
+    inner_tag_col1=outerTag.find_elements(By.CLASS_NAME,'table-qualified')
+
+    inner_tag_col2=outerTag.find_elements(By.CLASS_NAME,'ih-t-color')
+    
+    middle_tag=outerTag.find_elements(By.TAG_NAME,'tr')[0]
+    
+    inner_tag_col3=middle_tag.find_elements(By.TAG_NAME,'td')
+    
 
     print("###########################")
 
     position=[]
     
 
-    for tag in inner_tag:
-      print(tag.text[0][0])
+    for col1 in inner_tag_col1:
+      print(col1.text)
+    
     print("##########################")
-    for tag in inner_tag[1:][0:]:
-      print(tag.text)
+
+    for col2 in inner_tag_col2:
+      print(col2.text)
+
+    print("###########################")
+    print(inner_tag_col3)
+    
+    
+    
+      
+    
    
    
       
