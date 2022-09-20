@@ -2,7 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-ipl_pointTable_url = 'https://www.iplt20.com/points-table/men/2022'
+def get_url(year):
+  base_url,input = 'https://www.iplt20.com/points-table/men/','year'
+  ipl_pointsTable_url = base_url + input
+  return ipl_pointsTable_url
+
+# Enter the year to get the points table
+url=get_url(2020)
 
 
 def get_driver():
@@ -19,62 +25,59 @@ if __name__ == "__main__":
     driver = get_driver()
 
     print('Feteching the page')
-    driver.get(ipl_pointTable_url)
+    driver.get(url)
     print('Page title:', driver.title)
-    
-    print("##########################")
 
-    # get Point list tabel by class name
+    # getouter tag
+    
     outer_tag=driver.find_elements(By.CLASS_NAME,'ih-pt-tab-bg')
-    
     outerTag=outer_tag[0]
-
+  
+    # get inner tag
     inner_tag_col1=outerTag.find_elements(By.CLASS_NAME,'table-qualified')
-    inner_tag_col2=outerTag.find_elements(By.CLASS_NAME,'ih-t-color')
-    
-    inner_tag_col3=outerTag.find_elements(By.TAG_NAME,'tr')
-    
-    position=[]
-    
     for col1 in inner_tag_col1:
       print(col1.text)
-    print("##########################")
     
+    inner_tag_col2=outerTag.find_elements(By.CLASS_NAME,'ih-t-color')
     for col2 in inner_tag_col2:
       print(col2.text)
-    print("###########################")
+    
+    inner_tag_col3=outerTag.find_elements(By.CLASS_NAME,'team0')
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[3].text)
 
-    for col3 in inner_tag_col3:
-      print(col3.find_elements(By.XPATH,"//td[@class='ng-binding']")[0].text)
-
-    print("###########################")
-    for col4 in inner_tag_col3:
-      print(col4.find_elements(By.XPATH,"//td[@class='ng-binding']")[1].text)
-    for col5 in inner_tag_col3:
-      print(col5.find_elements(By.XPATH,"//td[@class='ng-binding']")[2].text)
-    for col6 in inner_tag_col3:
-      print(col6.find_elements(By.XPATH,"//td[@class='ng-binding']")[3].text)
-    for col7 in inner_tag_col3:
-      print(col7.find_elements(By.XPATH,"//td[@class='ng-binding']")[4].text)
-    for col8 in inner_tag_col3:
-      print(col8.find_elements(By.XPATH,"//td[@class='ng-binding']")[5].text)
-    for col9 in inner_tag_col3:
-      print(col9.find_elements(By.XPATH,"//td[@class='ng-binding']")[6].text)
-    for col10 in inner_tag_col3:
-      print(col10.find_elements(By.XPATH,"//td[@class='ng-binding']")[7].text)
-    for col11 in inner_tag_col3:
-      print(col11.find_elements(By.XPATH,"//td[@class='ng-binding']")[8].text)
-      
-    
-    
-    
-   
-   
-      
-   
-    
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[4].text)
 
 
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[5].text)
+
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[6].text)
+
+
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[7].text)
+
+
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[8].text)
+
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[9].text)
+
+    for i in inner_tag_col3:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[10].text)
     
-      
-      
+    inner_tag_col_form=outerTag.find_elements(By.CLASS_NAME,'ih-pt-fb-w')
+    for col_form in inner_tag_col_form:
+      print(list(col_form.text.strip()))
