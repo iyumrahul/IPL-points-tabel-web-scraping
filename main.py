@@ -29,12 +29,13 @@ if __name__ == "__main__":
     print('Page title:', driver.title)
 
     # getouter tag
-    
-    outer_tag=driver.find_elements(By.CLASS_NAME,'ih-pt-tab-bg')
-    outerTag=outer_tag[0]
+    def get_outer_tags():
+      outer_tag=driver.find_elements(By.CLASS_NAME,'ih-pt-tab-bg')
+      OT=outer_tag[0]
+      return OT
   
     # get inner tag
-    inner_tag_col1=outerTag.find_elements(By.CLASS_NAME,'table-qualified')
+    inner_tag_col1=OT.find_elements(By.CLASS_NAME,'table-qualified')
     for col1 in inner_tag_col1:
       print(col1.text)
     
