@@ -80,6 +80,10 @@ if __name__ == "__main__":
 
             form = i.find_elements(By.TAG_NAME, 'td')[11].text.strip()
             x = list(form)
+            x.remove('\n')
+            x.remove('\n')
+            x.remove('\n')
+            x.remove('\n')
             Form.append(list(x))
         return {
             'PLACE': Place,
