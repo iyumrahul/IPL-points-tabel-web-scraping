@@ -29,56 +29,63 @@ if __name__ == "__main__":
     print('Page title:', driver.title)
 
     # getouter tag
-    def get_outer_tags():
+    def get_outer_tag():
       outer_tag=driver.find_elements(By.CLASS_NAME,'ih-pt-tab-bg')
-      OT=outer_tag[0]
-      return OT
-  
+      outerTag=outer_tag[0]
+      return outerTag
+    
+    OT=get_outer_tag()  
+   
     # get inner tag
-    inner_tag_col1=OT.find_elements(By.CLASS_NAME,'table-qualified')
-    for col1 in inner_tag_col1:
-      print(col1.text)
-    
-    inner_tag_col2=outerTag.find_elements(By.CLASS_NAME,'ih-t-color')
-    for col2 in inner_tag_col2:
-      print(col2.text)
-    
-    inner_tag_col3=outerTag.find_elements(By.CLASS_NAME,'team0')
-    for i in inner_tag_col3:
+
+    inner_tag=OT.find_elements(By.CLASS_NAME,'team0')
+    for i in inner_tag:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[0].text)
+      
+    for i in inner_tag:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[1].text)
+      
+    for i in inner_tag:
+      x=i.find_elements(By.TAG_NAME,'td')
+      print(x[2].text)
+      
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[3].text)
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[4].text)
 
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[5].text)
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[6].text)
 
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[7].text)
 
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[8].text)
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[9].text)
 
-    for i in inner_tag_col3:
+    for i in inner_tag:
       x=i.find_elements(By.TAG_NAME,'td')
       print(x[10].text)
     
-    inner_tag_col_form=outerTag.find_elements(By.CLASS_NAME,'ih-pt-fb-w')
-    for col_form in inner_tag_col_form:
-      print(list(col_form.text.strip()))
+    for i in inner_tag:
+      x=i.find_elements(By.TAG_NAME,'td')[11]
+      print(list(x.text.strip()))   
