@@ -4,15 +4,18 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 
 
-def get_url(year):
-    base_url, input = 'https://www.iplt20.com/points-table/men/', str(year)
-    ipl_pointsTable_url = base_url + input
-    return ipl_pointsTable_url
+#  url making for each year
+year_list=[2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
 
+def get_url(year):
+  base_url,input = 'https://www.iplt20.com/points-table/men/', str(year)
+  ipl_pointsTable_url=base_url+input
+  return ipl_pointsTable_url
+  
 
 # Enter the year to get the points table
-url = get_url(2022)
 
+url=get_url(2022)
 
 def get_driver():
     chrome_options = Options()
@@ -123,23 +126,24 @@ if __name__ == "__main__":
       Form=[] 
       for i in tags:
         form = i.find_elements(By.TAG_NAME, 'td')[11].text.replace('\n','')
-        x = list(form)
-        Form.append(list(x))
+        Form.append(form)
       return Form
-    
-    # defining the function to get all the details of the column 
+    # defining the function to get all the details of the column in dictonaries
     def get_data():
-      position_column,team_name_column,played_column,won_column=get_position_col(),get_Team_col(),get_Pld_col(),get_Won_col()
-      lost_column,tied_column,no_result_column,net_run_rate_column=get_Lost_col(),get_Tied_col(),get_No_Result_col(),get_Net_RR_col()
-      for_column,against_column,pts_column,form_column=get_For_col(),get_Against_col(),get_Pts_col(),get_Form_col()  
-     
+      position_column,team_name_column,played_column=get_position_col(),get_Team_col(),get_Pld_col()
+      won_column,lost_column,tied_column=get_Won_col(),get_Lost_col(),get_Tied_col()
+      no_result_column,net_run_rate_column,for_column=get_No_Result_col(),get_Net_RR_col(),get_For_col()
+      against_column,pts_column,form_column=get_Against_col(),get_Pts_col(),get_Form_col()  
       return {'Position':position_column,'Team':team_name_column,'Pld':played_column,'Won':won_column,
               'Lost':lost_column,'Tied':tied_column,'No_result':no_result_column,'Net_RR':net_run_rate_column,
-              'For':for_column,'Against':against_column,'Points':pts_column,'Form':form_column }
+              'For':for_column,'Against':against_column,'Points':pts_column,'Form':form_column,}
           
     # function calling
+    
     dictonary_data = get_data()
-
+  
+    # dataframe to get data of year 2022-points tabel in tablur form
     df = pd.DataFrame(dictonary_data)
     df.to_csv('IPL T20 points Tabel 2022', index=None)
     print(df)
+   
