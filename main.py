@@ -30,12 +30,10 @@ def get_driver():
 if __name__ == "__main__":
     print('Creating Driver')
     driver = get_driver()
-
     print('Feteching the page')
-    #driver.get(url)
     print('Page title:', driver.title)
 
-    # get tag
+    # Defining functions to get tags
     def get_outer_tag():
         outer_tag = driver.find_elements(By.CLASS_NAME, 'ih-pt-tab-bg')
         outerTag = outer_tag[0]
@@ -137,13 +135,29 @@ if __name__ == "__main__":
             form = i.find_elements(By.TAG_NAME,'td')[11].text.replace('\n','')
             Form.append(form)
         return Form
+    def get_year_col(year):
+        Year=[]
+        for i in year:
+          if i==2022 or i==2011:
+            for j in range(10):
+              Year.append(i)
+          elif i==2012 or i==2013:
+            for j in range(9):
+              Year.append(i)  
+          else:
+            for j in range(8):
+              Year.append(i)
+            
+        return Year
+    
+    Years=get_year_col(year_list)     
 
     # defining the function to get all the details of the column in dictonaries
 
       
-    def get_data(url):
-      dictonary={'position_column':[],'Team': [],'Pld':[],'Won': [],'Lost':[],'Tied':[],
-                 'No_result': [],'Net_RR': [],'For': [],'Against': [],'Points':[],'Form':[],'Year':[] }
+    def get_data(url,years):
+      dictonary={'Year':years,'position_column':[],'Team': [],'Pld':[],'Won': [],'Lost':[],'Tied':[],
+                 'No_result': [],'Net_RR': [],'For': [],'Against': [],'Points':[],'Form':[]}
       for i in url:
           driver.get(i)
           dictonary['position_column'].extend(get_position_col())
@@ -158,16 +172,16 @@ if __name__ == "__main__":
           dictonary['Against'].extend(get_Against_col())
           dictonary['Points'].extend(get_Pts_col())
           dictonary['Form'].extend(get_Form_col())
-          #dictonary['Year'].extend(get_year_col())
   
       return dictonary
 
     # function calling
 
     # store the resulting out put in a variable
-    dictonary_data = get_data(url)
+    dictonary_data = get_data(url,Years)
 
     # dataframe to get data of year 2022-points tabel in tablur form
     df = pd.DataFrame(dictonary_data)
     df.to_csv('IPL T20 points Tabel', index=None)
     print(df)
+   
