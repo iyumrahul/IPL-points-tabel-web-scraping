@@ -3,19 +3,21 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import pandas as pd
 
-
 #  url making for each year
-year_list=[2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]
+year_list = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,2020, 2021, 2022]
 
 def get_url(year):
-  base_url,input = 'https://www.iplt20.com/points-table/men/', str(year)
-  ipl_pointsTable_url=base_url+input
-  return ipl_pointsTable_url
-  
+    base_url, input = 'https://www.iplt20.com/points-table/men/', str(year)
+    ipl_pointsTable_url = base_url + input
+    return ipl_pointsTable_url
 
 # Enter the year to get the points table
-
-url=get_url(2022)
+def url_of_years():
+  URL=[]
+  for years in year_list:
+    URL.append(get_url(years))
+  return URL
+url=url_of_years()
 
 def get_driver():
     chrome_options = Options()
@@ -24,14 +26,13 @@ def get_driver():
     chrome_options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(options=chrome_options)
     return driver
-
-
+  
 if __name__ == "__main__":
     print('Creating Driver')
     driver = get_driver()
 
     print('Feteching the page')
-    driver.get(url)
+    #driver.get(url)
     print('Page title:', driver.title)
 
     # get tag
@@ -41,109 +42,118 @@ if __name__ == "__main__":
         inner_tag = outerTag.find_elements(By.CLASS_NAME, 'team0')
         return inner_tag
 
-    Tag = get_outer_tag()
+    #Tag = get_outer_tag()
 
     # definig a function to get the data column wise
     def get_position_col():
-      tags = Tag
-      Place=[]
-      for i in tags:
-        place = i.find_elements(By.TAG_NAME, 'td')[0].text
-        Place.append(place)
-      return Place
+        tags = get_outer_tag()
+        Place = []
+        for i in tags:
+            place = i.find_elements(By.TAG_NAME, 'td')[0].text
+            Place.append(place)
+        return Place
+
     def get_Team_col():
-      tags = Tag
-      Team=[]
-      for i in tags:
-        team = i.find_elements(By.TAG_NAME, 'td')[1].text
-        Team.append(team)
-      return Team
+        tags = Tag
+        Team = []
+        for i in tags:
+            team = i.find_elements(By.TAG_NAME, 'td')[1].text
+            Team.append(team)
+        return Team
+
     def get_Pld_col():
-      tags = Tag
-      Pld=[]
-      for i in tags:
-        pld = i.find_elements(By.TAG_NAME, 'td')[2].text
-        Pld.append(pld)
-      return Pld
+        tags = Tag
+        Pld = []
+        for i in tags:
+            pld = i.find_elements(By.TAG_NAME, 'td')[2].text
+            Pld.append(pld)
+        return Pld
+
     def get_Won_col():
-      tags = Tag
-      Won=[]
-      for i in tags:
-        won = i.find_elements(By.TAG_NAME, 'td')[3].text
-        Won.append(won)
-      return  Won
+        tags = Tag
+        Won = []
+        for i in tags:
+            won = i.find_elements(By.TAG_NAME, 'td')[3].text
+            Won.append(won)
+        return Won
+
     def get_Lost_col():
-      tags = Tag
-      Lost=[]
-      for i in tags:
-        lost = i.find_elements(By.TAG_NAME, 'td')[4].text
-        Lost.append(lost)
-      return  Lost
+        tags = Tag
+        Lost = []
+        for i in tags:
+            lost = i.find_elements(By.TAG_NAME, 'td')[4].text
+            Lost.append(lost)
+        return Lost
+
     def get_Tied_col():
-      tags = Tag
-      Tied=[]
-      for i in tags:
-        tied = i.find_elements(By.TAG_NAME, 'td')[5].text
-        Tied.append(tied)
-      return Tied
+        tags = Tag
+        Tied = []
+        for i in tags:
+            tied = i.find_elements(By.TAG_NAME, 'td')[5].text
+            Tied.append(tied)
+        return Tied
+
     def get_No_Result_col():
-      tags = Tag
-      No_Result=[]
-      for i in tags:
-        noResult = i.find_elements(By.TAG_NAME, 'td')[6].text
-        No_Result.append(noResult)
-      return No_Result
+        tags = Tag
+        No_Result = []
+        for i in tags:
+            noResult = i.find_elements(By.TAG_NAME, 'td')[6].text
+            No_Result.append(noResult)
+        return No_Result
     def get_Net_RR_col():
-      tags = Tag
-      Net_RR=[]
-      for i in tags:
-        net_rr = i.find_elements(By.TAG_NAME, 'td')[7].text
-        Net_RR.append(net_rr)
-      return Net_RR
+        tags = Tag
+        Net_RR = []
+        for i in tags:
+            net_rr = i.find_elements(By.TAG_NAME, 'td')[7].text
+            Net_RR.append(net_rr)
+        return Net_RR
     def get_For_col():
-      tags = Tag
-      _For=[]
-      for i in tags:
-        _for = i.find_elements(By.TAG_NAME, 'td')[8].text
-        _For.append(_for)
-      return  _For
+        tags = Tag
+        _For = []
+        for i in tags:
+            _for = i.find_elements(By.TAG_NAME, 'td')[8].text
+            _For.append(_for)
+        return _For
+
     def get_Against_col():
-      tags = Tag
-      Against=[]
-      for i in tags:
-        against = i.find_elements(By.TAG_NAME, 'td')[9].text
-        Against.append(against)
-      return Against
+        tags = Tag
+        Against = []
+        for i in tags:
+            against = i.find_elements(By.TAG_NAME, 'td')[9].text
+            Against.append(against)
+        return Against
+
     def get_Pts_col():
-      tags = Tag
-      Pts=[]
-      for i in tags:
-        points = i.find_elements(By.TAG_NAME, 'td')[10].text
-        Pts.append(points)
-      return Pts
+        tags = Tag
+        Pts = []
+        for i in tags:
+            points = i.find_elements(By.TAG_NAME, 'td')[10].text
+            Pts.append(points)
+        return Pts
+
     def get_Form_col():
-      tags = Tag
-      Form=[] 
-      for i in tags:
-        form = i.find_elements(By.TAG_NAME, 'td')[11].text.replace('\n','')
-        Form.append(form)
-      return Form
+        tags = Tag
+        Form = []
+        for i in tags:
+            form = i.find_elements(By.TAG_NAME,'td')[11].text.replace('\n','')
+            Form.append(form)
+        return Form
+
     # defining the function to get all the details of the column in dictonaries
-    def get_data():
-      position_column,team_name_column,played_column=get_position_col(),get_Team_col(),get_Pld_col()
-      won_column,lost_column,tied_column=get_Won_col(),get_Lost_col(),get_Tied_col()
-      no_result_column,net_run_rate_column,for_column=get_No_Result_col(),get_Net_RR_col(),get_For_col()
-      against_column,pts_column,form_column=get_Against_col(),get_Pts_col(),get_Form_col()  
-      return {'Position':position_column,'Team':team_name_column,'Pld':played_column,'Won':won_column,
-              'Lost':lost_column,'Tied':tied_column,'No_result':no_result_column,'Net_RR':net_run_rate_column,
-              'For':for_column,'Against':against_column,'Points':pts_column,'Form':form_column,}
-          
+    def get_data(url):
+      dictonary={'position_column':[] }
+      for i in url:
+          driver.get(i)
+          dictonary['position_column'].extend(get_position_col())
+        #print(i)
+      return dictonary
+
     # function calling
-    
-    dictonary_data = get_data()
-  
+
+    # store the resulting out put in a variable
+    dictonary_data = get_data(url)
+
     # dataframe to get data of year 2022-points tabel in tablur form
     df = pd.DataFrame(dictonary_data)
     df.to_csv('IPL T20 points Tabel 2022', index=None)
     print(df)
-   
