@@ -28,160 +28,160 @@ def get_driver():
     return driver
   
 if __name__ == "__main__":
-    print('Creating Driver')
-    driver = get_driver()
-    print('Feteching the page')
-    print('Page title:', driver.title)
+  print('Creating Driver')
+  driver = get_driver()
+  print('Feteching the page')
+  print('Page title:', driver.title)
 
-    # Defining functions to get tags
-    def get_outer_tag():
-        outer_tag = driver.find_elements(By.CLASS_NAME, 'ih-pt-tab-bg')
-        outerTag = outer_tag[0]
-        inner_tag = outerTag.find_elements(By.CLASS_NAME, 'team0')
-        return inner_tag
+  # Defining functions to get tags
+  def get_outer_tag():
+      outer_tag = driver.find_elements(By.CLASS_NAME, 'ih-pt-tab-bg')
+      outerTag = outer_tag[0]
+      inner_tag = outerTag.find_elements(By.CLASS_NAME, 'team0')
+      return inner_tag
 
-    # definig a function to get the data column wise
-      
-    def get_position_col():
-        tags = get_outer_tag()
-        Place = []
-        for i in tags:
-            place = i.find_elements(By.TAG_NAME, 'td')[0].text
-            Place.append(place)
-        return Place
-
-    def get_Team_col():
-        tags = get_outer_tag()
-        Team = []
-        for i in tags:
-            team = i.find_elements(By.TAG_NAME, 'td')[1].text
-            Team.append(team)
-        return Team
-
-    def get_Pld_col():
-        tags = get_outer_tag()
-        Pld = []
-        for i in tags:
-            pld = i.find_elements(By.TAG_NAME, 'td')[2].text
-            Pld.append(pld)
-        return Pld
-
-    def get_Won_col():
-        tags = get_outer_tag()
-        Won = []
-        for i in tags:
-            won = i.find_elements(By.TAG_NAME, 'td')[3].text
-            Won.append(won)
-        return Won
-
-    def get_Lost_col():
-        tags = get_outer_tag()
-        Lost = []
-        for i in tags:
-            lost = i.find_elements(By.TAG_NAME, 'td')[4].text
-            Lost.append(lost)
-        return Lost
-
-    def get_Tied_col():
-        tags = get_outer_tag()
-        Tied = []
-        for i in tags:
-            tied = i.find_elements(By.TAG_NAME, 'td')[5].text
-            Tied.append(tied)
-        return Tied
-
-    def get_No_Result_col():
-        tags = get_outer_tag()
-        No_Result = []
-        for i in tags:
-            noResult = i.find_elements(By.TAG_NAME, 'td')[6].text
-            No_Result.append(noResult)
-        return No_Result
-    def get_Net_RR_col():
-        tags = get_outer_tag()
-        Net_RR = []
-        for i in tags:
-            net_rr = i.find_elements(By.TAG_NAME, 'td')[7].text
-            Net_RR.append(net_rr)
-        return Net_RR
-    def get_For_col():
-        tags = get_outer_tag()
-        _For = []
-        for i in tags:
-            _for = i.find_elements(By.TAG_NAME, 'td')[8].text
-            _For.append(_for)
-        return _For
-
-    def get_Against_col():
-        tags =get_outer_tag()
-        Against = []
-        for i in tags:
-            against = i.find_elements(By.TAG_NAME, 'td')[9].text
-            Against.append(against)
-        return Against
-
-    def get_Pts_col():
-        tags = get_outer_tag()
-        Pts = []
-        for i in tags:
-            points = i.find_elements(By.TAG_NAME, 'td')[10].text
-            Pts.append(points)
-        return Pts
-
-    def get_Form_col():
-        tags = get_outer_tag()
-        Form = []
-        for i in tags:
-            form = i.find_elements(By.TAG_NAME,'td')[11].text.replace('\n','')
-            Form.append(form)
-        return Form
-    def get_year_col(year):
-        Year=[]
-        for i in year:
-          if i==2022 or i==2011:
-            for j in range(10):
-              Year.append(i)
-          elif i==2012 or i==2013:
-            for j in range(9):
-              Year.append(i)  
-          else:
-            for j in range(8):
-              Year.append(i)
-            
-        return Year
+  # definig a function to get the data column wise
     
-    Years=get_year_col(year_list)     
+  def get_position_col():
+      tags = get_outer_tag()
+      Place = []
+      for i in tags:
+          place = i.find_elements(By.TAG_NAME, 'td')[0].text
+          Place.append(place)
+      return Place
 
-    # defining the function to get all the details of the column in dictonaries
+  def get_Team_col():
+      tags = get_outer_tag()
+      Team = []
+      for i in tags:
+          team = i.find_elements(By.TAG_NAME, 'td')[1].text
+          Team.append(team)
+      return Team
 
-      
-    def get_data(url,years):
-      dictonary={'Year':years,'position_column':[],'Team': [],'Pld':[],'Won': [],'Lost':[],'Tied':[],
-                 'No_result': [],'Net_RR': [],'For': [],'Against': [],'Points':[],'Form':[]}
-      for i in url:
-          driver.get(i)
-          dictonary['position_column'].extend(get_position_col())
-          dictonary['Team'].extend(get_Team_col())
-          dictonary['Pld'].extend(get_Pld_col())
-          dictonary['Won'].extend( get_Won_col())
-          dictonary['Lost'].extend(get_Lost_col())
-          dictonary['Tied'].extend(get_Tied_col())
-          dictonary['No_result'].extend( get_No_Result_col())
-          dictonary['Net_RR'].extend(get_Net_RR_col())
-          dictonary['For'].extend(get_For_col())
-          dictonary['Against'].extend(get_Against_col())
-          dictonary['Points'].extend(get_Pts_col())
-          dictonary['Form'].extend(get_Form_col())
+  def get_Pld_col():
+      tags = get_outer_tag()
+      Pld = []
+      for i in tags:
+          pld = i.find_elements(By.TAG_NAME, 'td')[2].text
+          Pld.append(pld)
+      return Pld
+
+  def get_Won_col():
+      tags = get_outer_tag()
+      Won = []
+      for i in tags:
+          won = i.find_elements(By.TAG_NAME, 'td')[3].text
+          Won.append(won)
+      return Won
+
+  def get_Lost_col():
+      tags = get_outer_tag()
+      Lost = []
+      for i in tags:
+          lost = i.find_elements(By.TAG_NAME, 'td')[4].text
+          Lost.append(lost)
+      return Lost
+
+  def get_Tied_col():
+      tags = get_outer_tag()
+      Tied = []
+      for i in tags:
+          tied = i.find_elements(By.TAG_NAME, 'td')[5].text
+          Tied.append(tied)
+      return Tied
+
+  def get_No_Result_col():
+      tags = get_outer_tag()
+      No_Result = []
+      for i in tags:
+          noResult = i.find_elements(By.TAG_NAME, 'td')[6].text
+          No_Result.append(noResult)
+      return No_Result
+  def get_Net_RR_col():
+      tags = get_outer_tag()
+      Net_RR = []
+      for i in tags:
+          net_rr = i.find_elements(By.TAG_NAME, 'td')[7].text
+          Net_RR.append(net_rr)
+      return Net_RR
+  def get_For_col():
+      tags = get_outer_tag()
+      _For = []
+      for i in tags:
+          _for = i.find_elements(By.TAG_NAME, 'td')[8].text
+          _For.append(_for)
+      return _For
+
+  def get_Against_col():
+      tags =get_outer_tag()
+      Against = []
+      for i in tags:
+          against = i.find_elements(By.TAG_NAME, 'td')[9].text
+          Against.append(against)
+      return Against
+
+  def get_Pts_col():
+      tags = get_outer_tag()
+      Pts = []
+      for i in tags:
+          points = i.find_elements(By.TAG_NAME, 'td')[10].text
+          Pts.append(points)
+      return Pts
+
+  def get_Form_col():
+      tags = get_outer_tag()
+      Form = []
+      for i in tags:
+          form = i.find_elements(By.TAG_NAME,'td')[11].text.replace('\n','')
+          Form.append(form)
+      return Form
+  def get_year_col(year):
+      Year=[]
+      for i in year:
+        if i==2022 or i==2011:
+          for j in range(10):
+            Year.append(i)
+        elif i==2012 or i==2013:
+          for j in range(9):
+            Year.append(i)  
+        else:
+          for j in range(8):
+            Year.append(i)
+          
+      return Year
   
-      return dictonary
+  Years=get_year_col(year_list)     
 
-    # function calling
+  # defining the function to get all the details of the column in dictonaries
 
-    # store the resulting out put in a variable
-    dictonary_data = get_data(url,Years)
+    
+  def get_data(url,years):
+    dictonary={'Year':years,'position_column':[],'Team': [],'Pld':[],'Won': [],'Lost':[],'Tied':[],
+               'No_result': [],'Net_RR': [],'For': [],'Against': [],'Points':[],'Form':[]}
+    for i in url:
+        driver.get(i)
+        dictonary['position_column'].extend(get_position_col())
+        dictonary['Team'].extend(get_Team_col())
+        dictonary['Pld'].extend(get_Pld_col())
+        dictonary['Won'].extend( get_Won_col())
+        dictonary['Lost'].extend(get_Lost_col())
+        dictonary['Tied'].extend(get_Tied_col())
+        dictonary['No_result'].extend( get_No_Result_col())
+        dictonary['Net_RR'].extend(get_Net_RR_col())
+        dictonary['For'].extend(get_For_col())
+        dictonary['Against'].extend(get_Against_col())
+        dictonary['Points'].extend(get_Pts_col())
+        dictonary['Form'].extend(get_Form_col())
 
-    # dataframe to get data of year 2022-points tabel in tablur form
-    df = pd.DataFrame(dictonary_data)
-    df.to_csv('IPL T20 points Tabel', index=None)
-    print(df)
-   
+    return dictonary
+
+  # function calling
+
+  # store the resulting out put in a variable
+  dictonary_data = get_data(url,Years)
+
+  # dataframe to get data of year 2022-points tabel in tablur form
+  df = pd.DataFrame(dictonary_data)
+  df.to_csv('IPLT20-points-Tabel.csv', index=None)
+  print(df)
+
